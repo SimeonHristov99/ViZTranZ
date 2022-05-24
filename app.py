@@ -1,4 +1,7 @@
+import base64
+import requests
 import streamlit as st
+
 
 st.set_page_config(page_icon='📷', page_title='ViZTranZ')
 
@@ -35,6 +38,13 @@ def get_langs():
     return options
 
 
+def send_image(im):
+    # https://stackoverflow.com/questions/63025174/send-image-file-to-aws-lambda-function
+    data = open(im, 'rb').read()
+    data = base64.b64encode(data).decode("utf8")
+    r = requests.post('url', data=data)
+
+
 def main():
     show_welcome()
 
@@ -47,6 +57,8 @@ def main():
 
         if options is not None and len(options) > 0:
             st.write(f'Translate to {options}')
+
+            send_image(im)
 
 
 if __name__ == '__main__':
