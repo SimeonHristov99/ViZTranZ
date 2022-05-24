@@ -1,6 +1,6 @@
 # ViZTranZ
 
-A Visual Translation Service that leverages AWS services.
+Upload an image and get translation of the objects in the image.
 
 ## Quick Start
 
@@ -11,6 +11,8 @@ source ./venv/bin/activate
 
 # Installing application dependencies
 pip3 install -r requirements.txt
+
+# Starting application
 streamlit run app.py
 ```
 
@@ -19,10 +21,10 @@ streamlit run app.py
 - [X] Create local project.
 - [X] Basic UI.
 - [X] Create github project.
-- [ ] Create AWS account.
-- [ ] Create the `AWS Lambda` function.
-- [ ] Set up the GET API.
-- [ ] Set up `AWS Rekognition`.
+- [X] Create AWS account.
+- [X] Create the `AWS Lambda` function.
+- [X] Set up `AWS Rekognition`.
+- [ ] Set up the POST API.
 - [ ] Set up `AWS Translate`.
 - [ ] Finishing touches.
 - [ ] Upload paper.
