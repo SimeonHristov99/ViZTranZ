@@ -1,6 +1,7 @@
-import base64
-import requests
+import io
 import streamlit as st
+from PIL import Image
+from s3_uploader import upload
 
 
 st.set_page_config(page_icon='📷', page_title='ViZTranZ')
@@ -22,15 +23,21 @@ def get_upl_file():
     )
 
     if result is not None:
-        bytes_data = result.getvalue()
-        return bytes_data
+        pil_image = Image.open(result)
+
+        # saving file to an in-memory file
+        in_mem_file = io.BytesIO()
+        pil_image.save(in_mem_file, format=pil_image.format)
+        in_mem_file.seek(0)
+
+        return in_mem_file
 
 
 def get_langs():
-    st.subheader('Step 2: Choose language to translate to')
+    st.subheader('Step 2: Choose language(s) to translate to')
 
     options = st.multiselect(
-        'Pick languages in which to translate',
+        'Pick language(s) in which to translate',
         ['Bulgarian', 'German', 'Russian'],
         ['Bulgarian']
     )
@@ -38,27 +45,22 @@ def get_langs():
     return options
 
 
-def send_image(im):
-    # https://stackoverflow.com/questions/63025174/send-image-file-to-aws-lambda-function
-    data = open(im, 'rb').read()
-    data = base64.b64encode(data).decode("utf8")
-    r = requests.post('url', data=data)
-
-
 def main():
     show_welcome()
 
-    im = get_upl_file()
+    in_mem_file = get_upl_file()
 
-    if im is not None:
-        st.image(im, 'Your image')
+    if in_mem_file is not None:
+        st.image(in_mem_file, 'Your image')
 
         options = get_langs()
 
         if options is not None and len(options) > 0:
             st.write(f'Translate to {options}')
 
-            send_image(im)
+            if st.button('Translate!', help='Click this button to begin the \
+                translation process'):
+                upload(in_mem_file)
 
 
 if __name__ == '__main__':
