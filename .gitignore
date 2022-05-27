@@ -1,2 +1,4 @@
 venv
 achive
+.env
+__pycache__
