@@ -2,3 +2,4 @@ venv
 achive
 .env
 __pycache__
+.vscode
