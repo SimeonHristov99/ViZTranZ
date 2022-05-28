@@ -22,9 +22,11 @@ streamlit run app.py
 - [X] Basic UI.
 - [X] Create github project.
 - [X] Create AWS account.
+- [X] Set up S3 bucket that would act as a trigger to the lambda.
 - [X] Create the `AWS Lambda` function.
 - [X] Set up `AWS Rekognition`.
-- [ ] Set up the POST API.
+- [X] Connect lambda to another S3 to publish results.
+- [X] Prettify code.
 - [ ] Set up `AWS Translate`.
 - [ ] Finishing touches.
 - [ ] Upload paper.
