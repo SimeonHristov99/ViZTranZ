@@ -5,7 +5,7 @@ import io
 import streamlit as st
 from PIL import Image
 
-from s3_uploader import upload
+from s3_manager import upload, get_results
 
 st.set_page_config(page_icon='📷', page_title='ViZTranZ')
 
@@ -67,8 +67,11 @@ def main():
 
             if st.button('Translate!', help='Click this button to begin the \
                 translation process'):
-                if upload(in_mem_file):
-                    st.write('Successful upload!')
+                file_name = upload(in_mem_file)
+                if file_name:
+                    st.write('Translating ...')
+                    results = get_results(file_name)
+                    st.write(f'Results: {results}')
 
 
 if __name__ == '__main__':
