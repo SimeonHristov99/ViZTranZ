@@ -2,12 +2,22 @@
 
 import io
 
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import plotly.express as px
 import streamlit as st
 from PIL import Image
 
-from s3_manager import upload, get_results
+import constants
+from s3_manager import get_results, upload
 
 st.set_page_config(page_icon='📷', page_title='ViZTranZ')
+
+
+def toggle_results():
+    """Delete stored results to signal new image upload."""
+    constants.results = None
 
 
 def show_welcome():
@@ -24,7 +34,8 @@ def get_upl_file():
     result = st.file_uploader(
         '',
         help='Upload one picture by clicking the "Browse files" button\
-             or dragging the image.'
+             or dragging the image.',
+        on_change=toggle_results
     )
 
     if result is not None:
@@ -44,11 +55,51 @@ def get_langs():
 
     options = st.multiselect(
         'Pick language(s) in which to translate',
-        ['Bulgarian', 'German', 'Russian'],
-        ['Bulgarian']
+        constants.SUPPORTED_LANGS,
+        ['Bulgarian'],
     )
 
     return options
+
+
+def build_chart(langs):
+    """Create and display the bar chart with the confidence of the translations."""
+    if constants.results is None:
+        st.write('ERROR: No `results` for image found!')
+        return
+
+    if len(langs) < 1:
+        st.write('Please select at least one language it which to translate!')
+        return
+
+    res_df = pd.DataFrame(constants.results, index=[
+                          'Confidence'] + constants.SUPPORTED_LANGS).T
+    res_df['Confidence'] = res_df['Confidence'].astype(float)
+
+    for lang in langs:
+        st.subheader(f'Results for {lang}')
+
+        df = pd \
+            .concat([res_df[lang], res_df['Confidence']], axis=1) \
+            .nlargest(10, 'Confidence')
+
+        df[lang] = df.index + ' => ' + df[lang]
+
+        fig = px.bar(
+            df.iloc[::-1],
+            x='Confidence',
+            y=lang,
+            orientation='h',
+            height=800,
+        )
+
+        fig.update_layout(
+            font=dict(
+                size=16,
+            )
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
 
 
 def main():
@@ -60,18 +111,18 @@ def main():
     if in_mem_file is not None:
         st.image(in_mem_file, 'Your image')
 
-        options = get_langs()
+        langs = get_langs()
 
-        if options is not None and len(options) > 0:
-            st.write(f'Translate to {options}')
-
+        if langs is not None and len(langs) > 0:
             if st.button('Translate!', help='Click this button to begin the \
                 translation process'):
-                file_name = upload(in_mem_file)
-                if file_name:
-                    st.write('Translating ...')
-                    results = get_results(file_name)
-                    st.write(f'Results: {results}')
+                if constants.results is None:
+                    print(' ... uploading new image ... ')
+                    # constants.results = constants.get_res()
+                    file_name = upload(in_mem_file)
+                    constants.results = get_results(file_name)
+
+                build_chart(langs)
 
 
 if __name__ == '__main__':
