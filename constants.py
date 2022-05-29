@@ -4,7 +4,9 @@ SUPPORTED_LANGS = ['Bulgarian', 'German', 'Russian']
 
 results = None
 
-def get_res():
+mode = 'Offline'
+
+def get_sample_results():
     """Dump sample results."""
     return {
         "Person": [
