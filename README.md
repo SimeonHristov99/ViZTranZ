@@ -6,7 +6,7 @@ Upload an image and get translation of the objects in the image.
 
 ```bash
 # Creating a new virtual environment
-python3 -m venv venv2
+python3 -m venv venv
 source ./venv/bin/activate
 
 # Installing application dependencies
