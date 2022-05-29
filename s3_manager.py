@@ -7,7 +7,6 @@ from io import BytesIO
 from time import sleep
 
 import boto3
-import streamlit as st
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -44,14 +43,13 @@ def upload(in_mem_file):
 def get_results(file_name):
     """Return the results from the translation."""
     results = []
-    with st.spinner('Translating...'):
-        while 'Contents' not in results:
-            results = client.list_objects_v2(
-                Bucket=BUCKET_RES,
-                Prefix=file_name,
-                MaxKeys=1
-            )
-            sleep(3)
+    while 'Contents' not in results:
+        results = client.list_objects_v2(
+            Bucket=BUCKET_RES,
+            Prefix=file_name,
+            MaxKeys=1
+        )
+        sleep(3)
 
     data = client.get_object(Bucket=BUCKET_RES, Key=file_name)
     contents = data['Body'].read()
