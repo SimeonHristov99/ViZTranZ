@@ -3,3 +3,4 @@ achive
 .env
 __pycache__
 .vscode
+tf_model

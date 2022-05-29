@@ -3,8 +3,9 @@
 import streamlit as st
 
 import constants
-from helpers import build_chart, get_langs, get_upl_file, toggle_results
+from helpers import build_chart_tf, get_langs, get_upl_file, toggle_results, build_chart_aws
 from s3_manager import get_results, upload
+from tf_od import run_detector
 
 ################################################################################
 # Title
@@ -27,7 +28,7 @@ st.header('A Visual Translation Service in Two Simple Steps!')
 
 option = st.sidebar.selectbox(
     'Which mode would you like to use?',
-    ('Offline', 'AWS'),
+    ('Tensorflow', 'AWS'),
     on_change=toggle_results
 )
 constants.mode = option
@@ -50,11 +51,16 @@ if in_mem_file is not None:
             'Translate!',
             help='Click this button to begin the translation process'
     ):
-        if constants.mode == 'AWS' and constants.results is None:
-            print(' ... uploading new image ... ')
-            file_name = upload(in_mem_file)
-            constants.results = get_results(file_name)
-        elif constants.mode == 'Offline':
-            constants.results = constants.get_sample_results()
+        if constants.mode == 'AWS':
+            if constants.results is None:
+                with st.spinner('Translating...'):
+                    print(' ... uploading new image ... ')
+                    file_name = upload(in_mem_file)
+                    constants.results = get_results(file_name)
 
-        build_chart(langs)
+            build_chart_aws(langs)
+        elif constants.mode == 'Tensorflow':
+            with st.spinner('Translating...'):
+                constants.results = run_detector(in_mem_file)
+
+            build_chart_tf(langs)

@@ -6,6 +6,8 @@ results = None
 
 mode = 'Offline'
 
+MODULE_HANDLE = "./tf_model"
+
 def get_sample_results():
     """Dump sample results."""
     return {

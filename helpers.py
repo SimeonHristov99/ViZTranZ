@@ -53,7 +53,7 @@ def get_langs():
     return options
 
 
-def build_chart(langs):
+def build_chart_aws(langs):
     """Create and display the bar chart with the confidence of the translations."""
     if constants.results is None:
         st.error('No translations for image found!')
@@ -91,3 +91,16 @@ def build_chart(langs):
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
+
+def build_chart_tf(langs):
+    """Create and display the bar chart with the confidence of the translations for Tensorflow."""
+    classes = list(map(
+        lambda x: x.decode('utf-8'),
+        constants.results['detection_class_entities']
+    ))
+    cls = pd.Series(classes, name='Classes')
+    cfs = pd.Series(
+        constants.results['detection_scores'], name='Confidence')
+    df = pd.concat([cls, cfs], axis=1)
+    st.write(df)
