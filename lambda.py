@@ -24,7 +24,7 @@ def detect_labels(bucket, key):
     )
 
     to_translate = {d['Name']: d['Confidence']
-                    for d in response['Labels'] if d['Confidence'] >= 90}
+                    for d in response['Labels']}
 
     return to_translate
 
