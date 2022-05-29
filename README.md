@@ -27,7 +27,9 @@ streamlit run app.py
 - [X] Set up `AWS Rekognition`.
 - [X] Connect lambda to another S3 to publish results.
 - [X] Prettify code.
-- [ ] Set up `AWS Translate`.
+- [X] Set up `AWS Translate`.
+- [ ] Add sidemenu with `previous results` and `online` and `offline` modes.
+- [ ] Add `offline` mode.
 - [ ] Finishing touches.
 - [ ] Upload paper.
 

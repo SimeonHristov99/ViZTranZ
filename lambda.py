@@ -10,12 +10,12 @@ import boto3
 print('Loading function')
 
 RES_BUCKET = 'viztranz-results'
+LANGS = ['bg', 'de', 'ru']
 
 s3 = boto3.client('s3')
+translate = boto3.client('translate')
 rekognition = boto3.client('rekognition')
 
-
-# --------------- Helper Functions to call Rekognition APIs ------------------
 
 def detect_labels(bucket, key):
     """Call rekognition DetectLabels API to detect labels in S3 object."""
@@ -23,9 +23,31 @@ def detect_labels(bucket, key):
         Image={"S3Object": {"Bucket": bucket, "Name": key}}
     )
 
-    to_translate = {d['Name']: d['Confidence'] for d in response['Labels']}
+    to_translate = {d['Name']: d['Confidence']
+                    for d in response['Labels'] if d['Confidence'] >= 90}
 
     return to_translate
+
+
+def translate_text(text, lang_code):
+    """Call the `Translate` API and get translations."""
+    result = translate.translate_text(
+        Text=text,
+        SourceLanguageCode='en',
+        TargetLanguageCode=lang_code
+    )
+
+    return result['TranslatedText']
+
+
+def do_translate(to_translate):
+    """Add translations to detected objects."""
+    with_translations = {
+        word: [conf] + [translate_text(word, code) for code in LANGS]
+        for (word, conf) in to_translate.items()
+    }
+
+    return with_translations
 
 
 def upl_to_s3(bucket, res, key):
@@ -45,12 +67,11 @@ def lambda_handler(event, context):
     try:
         to_translate = detect_labels(bucket, key)
 
-        # Print response to console.
-        print(to_translate)
+        with_translations = do_translate(to_translate)
 
-        upl_to_s3(RES_BUCKET, to_translate, key)
+        upl_to_s3(RES_BUCKET, with_translations, key)
 
-        return to_translate
+        return with_translations
     except Exception as e:
         print(e)
         print("Error processing object {} from bucket {}. ".format(key, bucket) +
