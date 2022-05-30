@@ -2,14 +2,17 @@
 
 from transformers import pipeline
 
-tr_ru = pipeline('translation_en_to_ru', model='t5-small')
-tr_de = pipeline('translation_en_to_de', model='t5-small')
-tr_bg = pipeline('translation_de_to_bg', model='opus-mt-de-bg')
+tr_ru = pipeline('translation_en_to_ru', model='opus-mt-en-ru')
+tr_de = pipeline('translation_en_to_de', model='opus-mt-en-de')
+tr_bg = pipeline('translation_en_to_bg', model='opus-mt-en-bg')
 
-res_de = tr_de('Dog')
-res_ru = tr_ru('Dog')
-res_bg = tr_bg('Hunde')
+translators = {
+    'bg': tr_bg,
+    'de': tr_de,
+    'ru': tr_ru,
+}
 
-print(f'{res_de=}')
-print(f'{res_ru=}')
-print(f'{res_bg=}')
+
+def translate(model, text):
+    """Return the translated text."""
+    return model(text)[0]['translation_text']
