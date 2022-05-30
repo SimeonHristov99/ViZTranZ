@@ -5,3 +5,4 @@ __pycache__
 .vscode
 tf_model
 t5-small
+opus-mt-de-bg

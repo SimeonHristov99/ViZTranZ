@@ -23,8 +23,16 @@ tar -xf model
 # Setup Pytorch and Hugging Face Transformers for neural machine translation
 sudo apt-get install git-lfs
 git lfs install
-GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/google/mt5-small
-cd mt5-small
+
+# Downloading model for de-bg translations
+GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/Helsinki-NLP/opus-mt-de-bg
+cd opus-mt-de-bg
+git lfs pull
+cd ..
+
+# Downloading model for en-de and en-ru translations
+GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/t5-small
+cd t5-small
 git lfs pull
 cd ..
 
@@ -45,9 +53,11 @@ streamlit run app.py
 - [X] Prettify code.
 - [X] Set up `AWS Translate`.
 - [X] Add sidemenu with `AWS` and `Local` modes.
-- [ ] Add `Local` mode.
+- [ ] Link `Hugging Face` to UI.
+- [ ] Finish `Local` mode.
+- [ ] Create modules.
 - [ ] Add bash script `setup.sh` instead of commands in `quick start` section.
-- [ ] Create a module.
+- [ ] Add bash script `run.sh`.
 - [ ] Upload paper.
 
 ## About
