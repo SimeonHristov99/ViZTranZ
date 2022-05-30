@@ -12,19 +12,25 @@ source ./venv/bin/activate
 # Installing application dependencies
 pip3 install -r requirements.txt
 
+# Setup Tensorflow for performing object detection
 mkdir tf_model
 cd tf_model
-
 wget https://tfhub.dev/google/openimages_v4/ssd/mobilenet_v2/1?tf-hub-format=compressed
 mv 1\?tf-hub-format\=compressed model.gz
 gzip -d model.gz
 tar -xf model
 
+# Setup Pytorch and Hugging Face Transformers for neural machine translation
+sudo apt-get install git-lfs
+git lfs install
+GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/google/mt5-small
+cd mt5-small
+git lfs pull
+cd ..
+
 # Starting application
 streamlit run app.py
 ```
-
-> **Note:** The **first run will take some time** as `Tensorflow` will have to download the models it will use for object detection.
 
 ## Tasks
 
@@ -38,9 +44,10 @@ streamlit run app.py
 - [X] Connect lambda to another S3 to publish results.
 - [X] Prettify code.
 - [X] Set up `AWS Translate`.
-- [X] Add sidemenu with `AWS` and `Tensorflow` modes.
-- [ ] Add `Tensorflow` mode.
-- [ ] Finishing touches.
+- [X] Add sidemenu with `AWS` and `Local` modes.
+- [ ] Add `Local` mode.
+- [ ] Add bash script `setup.sh` instead of commands in `quick start` section.
+- [ ] Create a module.
 - [ ] Upload paper.
 
 ## About

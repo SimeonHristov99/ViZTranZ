@@ -28,7 +28,7 @@ st.header('A Visual Translation Service in Two Simple Steps!')
 
 option = st.sidebar.selectbox(
     'Which mode would you like to use?',
-    ('Tensorflow', 'AWS'),
+    ('Local', 'AWS'),
     on_change=toggle_results
 )
 constants.mode = option
@@ -59,7 +59,7 @@ if in_mem_file is not None:
                     constants.results = get_results(file_name)
 
             build_chart_aws(langs)
-        elif constants.mode == 'Tensorflow':
+        elif constants.mode == 'Local':
             with st.spinner('Translating...'):
                 constants.results = run_detector(in_mem_file)
 
