@@ -25,14 +25,20 @@ sudo apt-get install git-lfs
 git lfs install
 
 # Downloading model for de-bg translations
-GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/Helsinki-NLP/opus-mt-de-bg
-cd opus-mt-de-bg
+GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/Helsinki-NLP/opus-mt-en-bg
+cd opus-mt-en-bg
 git lfs pull
 cd ..
 
-# Downloading model for en-de and en-ru translations
-GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/t5-small
-cd t5-small
+# Downloading model for en-ru translations
+GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/Helsinki-NLP/opus-mt-en-ru
+cd opus-mt-en-ru
+git lfs pull
+cd ..
+
+# Downloading model for en-de translations
+GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/Helsinki-NLP/opus-mt-en-de
+cd opus-mt-en-de
 git lfs pull
 cd ..
 
