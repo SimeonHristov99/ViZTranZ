@@ -9,6 +9,8 @@ import plotly.express as px
 import streamlit as st
 from PIL import Image
 
+from translation import translators, translate
+
 import constants
 from s3_manager import get_results, upload
 
@@ -53,7 +55,7 @@ def get_langs():
     return options
 
 
-def build_chart_aws(langs):
+def build_chart(langs):
     """Create and display the bar chart with the confidence of the translations."""
     if constants.results is None:
         st.error('No translations for image found!')
@@ -66,6 +68,8 @@ def build_chart_aws(langs):
     res_df = pd.DataFrame(constants.results, index=[
                           'Confidence'] + constants.SUPPORTED_LANGS).T
     res_df['Confidence'] = res_df['Confidence'].astype(float)
+
+    st.write(res_df)
 
     for lang in langs:
         st.subheader(f'Results for {lang}')
@@ -93,14 +97,21 @@ def build_chart_aws(langs):
         st.plotly_chart(fig, use_container_width=True)
 
 
-def build_chart_tf(langs):
-    """Create and display the bar chart with the confidence of the translations for Tensorflow."""
+def add_translations():
+    """Create a dataframe from the results of the object detection."""
     classes = list(map(
         lambda x: x.decode('utf-8'),
         constants.results['detection_class_entities']
     ))
-    cls = pd.Series(classes, name='Classes')
-    cfs = pd.Series(
-        constants.results['detection_scores'], name='Confidence')
-    df = pd.concat([cls, cfs], axis=1)
-    st.write(df)
+
+    constants.results = dict(zip(classes, constants.results['detection_scores']))
+    
+    constants.results = {
+        cls: [conf] + [ translate(translator, cls) for translator in translators[:-1] ]
+        for (cls, conf) in constants.results.items()
+    }
+
+    constants.results = {
+        cls: xs + [ translate(translators[-1], xs[-1]) ]
+        for (cls, xs) in constants.results.items()
+    }
