@@ -72,7 +72,12 @@ Created as part of a university course: `Application programming interfaces for 
 
 ### References
 
-- AWS API Gateway to Lambda Tutorial in Python | Build a REST API: <https://www.youtube.com/watch?v=uFsaiEhr1zs>
 - AWS Tutorial : Image recognition and notification with AWS Lambda, Rekognition, SNS, S3, Python: <https://www.youtube.com/watch?v=wnTvVB1ojPk>
-- Secure your API Gateway with Lambda Authorizer: <https://www.youtube.com/watch?v=al5I9v5Y-kA>
-- Tensorflow Hub: <https://tfhub.dev/google/efficientnet/b1/classification/1>
+- AWS: Image analysis using Rekognition via Lambda function: <https://www.youtube.com/watch?v=3r_ue7TQkCE>
+- Using AWS Rekognition and Python to Identify Objects / Text in Images: <https://www.youtube.com/watch?v=gjUwPEqnEeI>
+- AWS Architecture: Serverless Photo Recognition: <https://www.youtube.com/watch?v=GIdJz7VnP58>
+- Translating documents with Amazon Translate, AWS Lambda: <https://www.youtube.com/watch?v=-_2wCN5heXw&t=448s>
+- Tensorflow Hub model for object detection: <https://tfhub.dev/google/openimages_v4/ssd/mobilenet_v2/1>
+- Hugging Face model for translating en-de: <https://huggingface.co/Helsinki-NLP/opus-mt-en-de>
+- Hugging Face model for translating en-bg: <https://huggingface.co/Helsinki-NLP/opus-mt-en-bg>
+- Hugging Face model for translating en-ru: <https://huggingface.co/Helsinki-NLP/opus-mt-en-ru>
