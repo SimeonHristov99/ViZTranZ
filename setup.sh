@@ -5,13 +5,13 @@ python3 -m venv venv
 source "./venv/bin/activate"
 
 echo 'Installing application dependencies ...'
-pip3 install -r requirements.txt
+pip3 install streamlit tensorflow torch matplotlib plotly boto3 dotenv
 
 echo 'Setting up Tensorflow for performing object detection ...'
 mkdir tf_model
 cd tf_model || exit
 wget https://tfhub.dev/google/openimages_v4/ssd/mobilenet_v2/1?tf-hub-format=compressed
-mv "1\?tf-hub-format\=compressed" model.gz
+mv 1\?tf-hub-format\=compressed model.gz
 gzip -d model.gz
 tar -xf model
 
