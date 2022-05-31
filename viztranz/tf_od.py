@@ -1,11 +1,10 @@
 """Code to run object detection with Tensorflow."""
 
-import matplotlib.pyplot as plt
 import tensorflow as tf
 import tensorflow_hub as hub
-
-from constants import MODULE_HANDLE
 from PIL import Image
+
+from viztranz.constants import MODULE_HANDLE
 
 detector = hub.load(MODULE_HANDLE).signatures['default']
 
@@ -22,5 +21,5 @@ def run_detector(im_bytes):
     result = detector(converted_img)
 
     result = {key: value.numpy() for key, value in result.items()}
-    
+
     return result

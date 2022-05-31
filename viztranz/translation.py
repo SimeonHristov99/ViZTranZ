@@ -6,6 +6,7 @@ tr_ru = pipeline('translation_en_to_ru', model='opus-mt-en-ru')
 tr_de = pipeline('translation_en_to_de', model='opus-mt-en-de')
 tr_bg = pipeline('translation_en_to_bg', model='opus-mt-en-bg')
 
+# The order here matters. Add in accordance to `SUPPORTED_LANGS`.
 translators = {
     'bg': tr_bg,
     'de': tr_de,

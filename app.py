@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-import constants
-from helpers import get_langs, get_upl_file, toggle_results, build_chart, add_translations
-from s3_manager import get_results, upload
-from tf_od import run_detector
+from viztranz import constants
+from viztranz.helpers import get_langs, get_upl_file, toggle_results, build_chart, add_translations
+from viztranz.s3_manager import get_results, upload
+from viztranz.tf_od import run_detector
 
 ################################################################################
 # Title
@@ -66,3 +66,5 @@ if in_mem_file is not None:
                     add_translations()
 
             build_chart(langs)
+        else:
+            st.error(f'ERROR: Unknown mode: {constants.mode}')

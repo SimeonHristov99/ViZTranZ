@@ -61,7 +61,7 @@ streamlit run app.py
 - [X] Add sidemenu with `AWS` and `Local` modes.
 - [X] Link `Hugging Face` to UI.
 - [X] Finish `Local` mode.
-- [ ] Create modules.
+- [X] Package code.
 - [ ] Add bash script `setup.sh` instead of commands in `quick start` section.
 - [ ] Add bash script `run.sh`.
 - [ ] Upload paper.

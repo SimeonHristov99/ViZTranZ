@@ -1,4 +1,4 @@
-"""Stores temporary hardcoded variables."""
+"""Stores constants and global variables."""
 
 SUPPORTED_LANGS = ['Bulgarian', 'German', 'Russian']
 
@@ -7,6 +7,7 @@ results = None
 mode = 'Offline'
 
 MODULE_HANDLE = "./tf_model"
+
 
 def get_sample_results():
     """Dump sample results."""

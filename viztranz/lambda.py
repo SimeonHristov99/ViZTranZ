@@ -1,9 +1,7 @@
 """The lambda function used."""
 
 import json
-import urllib.error
-import urllib.parse
-import urllib.request
+import urllib
 
 import boto3
 

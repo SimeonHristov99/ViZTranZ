@@ -9,10 +9,9 @@ import plotly.express as px
 import streamlit as st
 from PIL import Image
 
-from translation import translators, translate
-
-import constants
-from s3_manager import get_results, upload
+from viztranz import constants
+from viztranz.s3_manager import get_results, upload
+from viztranz.translation import translate, translators
 
 
 def toggle_results():
