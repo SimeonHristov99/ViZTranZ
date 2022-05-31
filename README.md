@@ -59,8 +59,8 @@ streamlit run app.py
 - [X] Prettify code.
 - [X] Set up `AWS Translate`.
 - [X] Add sidemenu with `AWS` and `Local` modes.
-- [ ] Link `Hugging Face` to UI.
-- [ ] Finish `Local` mode.
+- [X] Link `Hugging Face` to UI.
+- [X] Finish `Local` mode.
 - [ ] Create modules.
 - [ ] Add bash script `setup.sh` instead of commands in `quick start` section.
 - [ ] Add bash script `run.sh`.

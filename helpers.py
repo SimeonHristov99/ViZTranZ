@@ -69,8 +69,6 @@ def build_chart(langs):
                           'Confidence'] + constants.SUPPORTED_LANGS).T
     res_df['Confidence'] = res_df['Confidence'].astype(float)
 
-    st.write(res_df)
-
     for lang in langs:
         st.subheader(f'Results for {lang}')
 
@@ -104,14 +102,12 @@ def add_translations():
         constants.results['detection_class_entities']
     ))
 
-    constants.results = dict(zip(classes, constants.results['detection_scores']))
-    
-    constants.results = {
-        cls: [conf] + [ translate(translator, cls) for translator in translators[:-1] ]
-        for (cls, conf) in constants.results.items()
-    }
+    constants.results = dict(
+        zip(classes, constants.results['detection_scores'])
+    )
 
     constants.results = {
-        cls: xs + [ translate(translators[-1], xs[-1]) ]
-        for (cls, xs) in constants.results.items()
+        cls: [conf] + [translate(translator, cls)[:15]
+                       for translator in translators.values()]
+        for (cls, conf) in constants.results.items()
     }

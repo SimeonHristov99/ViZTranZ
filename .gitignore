@@ -5,4 +5,6 @@ __pycache__
 .vscode
 tf_model
 t5-small
-opus-mt-de-bg
+opus-mt-en-bg
+opus-mt-en-ru
+opus-mt-en-de

@@ -3,7 +3,7 @@
 import streamlit as st
 
 import constants
-from helpers import build_chart_tf, get_langs, get_upl_file, toggle_results, build_chart, add_translations
+from helpers import get_langs, get_upl_file, toggle_results, build_chart, add_translations
 from s3_manager import get_results, upload
 from tf_od import run_detector
 
@@ -60,8 +60,9 @@ if in_mem_file is not None:
 
             build_chart(langs)
         elif constants.mode == 'Local':
-            with st.spinner('Translating...'):
-                constants.results = run_detector(in_mem_file)
-                add_translations()
+            if constants.results is None:
+                with st.spinner('Translating...'):
+                    constants.results = run_detector(in_mem_file)
+                    add_translations()
 
             build_chart(langs)
