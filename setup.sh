@@ -2,7 +2,7 @@
 
 echo 'Creating a new virtual environment ...'
 python3 -m venv venv
-shellcheck source=./venv/bin/activate
+source './venv/bin/activate'
 
 echo 'Installing application dependencies ...'
 pip3 install -r requirements.txt
