@@ -95,7 +95,7 @@ def build_chart(langs):
 
 
 def add_translations():
-    """Create a dataframe from the results of the object detection."""
+    """Add translations to the results of the object detection."""
     classes = list(map(
         lambda x: x.decode('utf-8'),
         constants.results['detection_class_entities']
