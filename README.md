@@ -1,6 +1,8 @@
 # ViZTranZ
 
-Upload an image and get translation of the objects in the image.
+![logo](assets/logo.png)
+
+Goal: Upload an image and get translation of the objects in the image.
 
 ## Quick Start
 
@@ -29,6 +31,7 @@ Upload an image and get translation of the objects in the image.
 - [X] Add bash script `run.sh`.
 - [X] Add versions to the `pip` packages.
 - [X] Add logo!
+- [X] Upload paper (in bulgarian).
 
 ## About
 
