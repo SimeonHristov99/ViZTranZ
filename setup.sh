@@ -5,7 +5,9 @@ python3 -m venv venv
 source ./venv/bin/activate
 
 echo 'Installing application dependencies ...'
-pip3 install streamlit tensorflow torch matplotlib plotly boto3 python-dotenv transformers sentencepiece tensorflow_hub sacremoses
+pip3 install -r requirements.txt
+# in case there are problems with the above line, try this
+#pip3 install streamlit tensorflow torch matplotlib plotly boto3 python-dotenv transformers sentencepiece tensorflow_hub sacremoses
 
 echo 'Setting up Tensorflow for performing object detection ...'
 mkdir tf_model
