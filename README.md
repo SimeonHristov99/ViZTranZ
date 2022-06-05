@@ -28,6 +28,7 @@ Upload an image and get translation of the objects in the image.
 - [X] Add bash script `setup.sh` instead of commands in `quick start` section.
 - [X] Add bash script `run.sh`.
 - [X] Add versions to the `pip` packages.
+- [X] Add logo!
 
 ## About
 
